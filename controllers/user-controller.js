@@ -11,7 +11,7 @@ const userController = {
         path: "friends",
         select: "-__v",
       })
-      .select("-__v -password")
+      .select("-__v")
       .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
@@ -30,7 +30,7 @@ const userController = {
         path: "friends",
         select: "-__v",
       })
-      .select("-__v -password")
+      .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
           res.status(404).json({ message: "No user found with this id" });
@@ -81,7 +81,7 @@ const userController = {
     User.findOneAndUpdate(
       { _id: params.userId },
       { $push: { friends: params.friendId } },
-      { new: true }
+      { new: true, runValidators: true }
     )
       .then((dbUserData) => {
         if (!dbUserData) {
