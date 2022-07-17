@@ -7,10 +7,6 @@ const thoughtController = {
         path: "reactions",
         select: "-__v",
       })
-      .populate({
-        path: "username",
-        select: "-__v",
-      })
       .select("-__v")
       .sort({ _id: -1 })
       .then((dbThoughtData) => res.json(dbThoughtData))
@@ -91,7 +87,7 @@ const thoughtController = {
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $push: { replies: body } },
+      { $push: { reactions: body } },
       { new: true, runValidators: true }
     )
       .then((dbThoughtData) => {

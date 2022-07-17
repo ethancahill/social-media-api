@@ -49,9 +49,6 @@ UserSchema.virtual("friendCount").get(function () {
     return this.friends.length
 })
 
-UserSchema.post('deleteOne', function(doc) {
-    Event.remove({_id: { $in: doc.thoughts}})
-})
 
 const User = model("User", UserSchema);
 
